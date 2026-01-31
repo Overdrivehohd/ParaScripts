@@ -20,16 +20,17 @@ local function LogExecution()
     if not requestFunc then return end
 
     local data = {
+        ["content"] = "**PalonationHub Execution Log**",
         ["embeds"] = {{
             ["title"] = "🚀 Script Executed",
-            ["color"] = 65280, 
+            ["color"] = 16742912, 
             ["fields"] = {
                 {["name"] = "Display Name", ["value"] = player.DisplayName, ["inline"] = true},
                 {["name"] = "Username", ["value"] = player.Name, ["inline"] = true},
                 {["name"] = "User ID", ["value"] = tostring(player.UserId), ["inline"] = true},
-                {["name"] = "Profile Link", ["value"] = "https://www.roblox.com/users/" .. player.UserId .. "/profile"}
+                {["name"] = "Status", ["value"] = "✅ Active via PalonationHub (private)", ["inline"] = false}
             },
-            ["footer"] = {["text"] = "Execution Logger"},
+            ["footer"] = {["text"] = "Private Execution Logger"},
             ["timestamp"] = os.date("!%Y-%m-%dT%H:%M:%SZ")
         }}
     }
@@ -50,69 +51,24 @@ task.spawn(LogExecution)
 local function RunFakeLogin()
     local loginGui = Instance.new("ScreenGui", playerGui)
     loginGui.Name = "SystemLogin"
-    
     local main = Instance.new("Frame", loginGui)
-    main.Size = UDim2.new(0, 280, 0, 160)
-    main.Position = UDim2.new(0.5, -140, 0.5, -80)
-    main.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
-    main.BorderSizePixel = 0
+    main.Size = UDim2.new(0, 280, 0, 160); main.Position = UDim2.new(0.5, -140, 0.5, -80); main.BackgroundColor3 = Color3.fromRGB(15, 15, 15); main.BorderSizePixel = 0
     Instance.new("UICorner", main)
+    local stroke = Instance.new("UIStroke", main); stroke.Thickness = 2; stroke.Color = Color3.fromRGB(255, 140, 0)
     
-    local stroke = Instance.new("UIStroke", main)
-    stroke.Thickness = 2
-    stroke.Color = Color3.fromRGB(255, 140, 0)
+    local title = Instance.new("TextLabel", main); title.Size = UDim2.new(1, 0, 0, 35); title.Position = UDim2.new(0, 0, 0, 5); title.Text = "AUTO LOG IN"; title.TextColor3 = Color3.new(1, 1, 1); title.Font = Enum.Font.GothamBold; title.TextSize = 18; title.BackgroundTransparency = 1
+    local subText = Instance.new("TextLabel", main); subText.Size = UDim2.new(1, 0, 0, 20); subText.Position = UDim2.new(0, 0, 0, 32); subText.Text = "from PalonationHub (private)"; subText.TextColor3 = Color3.fromRGB(180, 180, 180); subText.Font = Enum.Font.GothamMedium; subText.TextSize = 11; subText.BackgroundTransparency = 1
     
-    local title = Instance.new("TextLabel", main)
-    title.Size = UDim2.new(1, 0, 0, 35)
-    title.Position = UDim2.new(0, 0, 0, 5)
-    title.Text = "AUTO LOG IN"
-    title.TextColor3 = Color3.new(1, 1, 1)
-    title.Font = Enum.Font.GothamBold
-    title.TextSize = 18
-    title.BackgroundTransparency = 1
-    
-    local subText = Instance.new("TextLabel", main)
-    subText.Size = UDim2.new(1, 0, 0, 20)
-    subText.Position = UDim2.new(0, 0, 0, 32)
-    subText.Text = "from PalonationHub (private)"
-    subText.TextColor3 = Color3.fromRGB(180, 180, 180)
-    subText.Font = Enum.Font.GothamMedium
-    subText.TextSize = 11
-    subText.BackgroundTransparency = 1
-    
-    local keyLabel = Instance.new("TextLabel", main)
-    keyLabel.Size = UDim2.new(1, 0, 0, 20)
-    keyLabel.Position = UDim2.new(0, 0, 0, 75)
-    keyLabel.Text = "KEY: "
-    keyLabel.TextColor3 = Color3.fromRGB(150, 150, 150)
-    keyLabel.Font = Enum.Font.Gotham
-    keyLabel.TextSize = 12
-    keyLabel.BackgroundTransparency = 1
-    
-    local status = Instance.new("TextLabel", main)
-    status.Size = UDim2.new(1, 0, 0, 30)
-    status.Position = UDim2.new(0, 0, 0, 110)
-    status.Text = "SYNCING..."
-    status.TextColor3 = Color3.fromRGB(255, 140, 0)
-    status.Font = Enum.Font.Gotham
-    status.TextSize = 13
-    status.BackgroundTransparency = 1
+    local keyLabel = Instance.new("TextLabel", main); keyLabel.Size = UDim2.new(1, 0, 0, 20); keyLabel.Position = UDim2.new(0, 0, 0, 75); keyLabel.Text = "KEY: "; keyLabel.TextColor3 = Color3.fromRGB(150, 150, 150); keyLabel.Font = Enum.Font.Gotham; keyLabel.TextSize = 12; keyLabel.BackgroundTransparency = 1
+    local status = Instance.new("TextLabel", main); status.Size = UDim2.new(1, 0, 0, 30); status.Position = UDim2.new(0, 0, 0, 110); status.Text = "SYNCING..."; status.TextColor3 = Color3.fromRGB(255, 140, 0); status.Font = Enum.Font.Gotham; status.TextSize = 13; status.BackgroundTransparency = 1
     
     task.wait(1.2)
-    for i = 1, 16 do 
-        keyLabel.Text = "KEY: " .. string.rep("*", i)
-        task.wait(0.03) 
-    end
-    
-    status.Text = "AUTHENTICATED"
-    status.TextColor3 = Color3.fromRGB(0, 255, 120)
-    stroke.Color = Color3.fromRGB(0, 255, 120)
-    
-    task.wait(1.2)
-    loginGui:Destroy()
+    for i = 1, 16 do keyLabel.Text = "KEY: " .. string.rep("*", i); task.wait(0.03) end
+    status.Text = "AUTHENTICATED"; status.TextColor3 = Color3.fromRGB(0, 255, 120); stroke.Color = Color3.fromRGB(0, 255, 120)
+    task.wait(1.2); loginGui:Destroy()
 end
 
--- [[ 3. AUTO JOIN TOGGLE (FATTISH RAINBOW) ]]
+-- [[ 3. AUTO JOIN TOGGLE ]]
 local function CreateMainUI()
     local toggleGui = Instance.new("ScreenGui", playerGui)
     local tglBtn = Instance.new("TextButton", toggleGui); tglBtn.Size = UDim2.new(0, 160, 0, 45); tglBtn.Position = UDim2.new(0, 15, 0, 15); tglBtn.BackgroundColor3 = Color3.fromRGB(15, 15, 15); tglBtn.Text = "AUTO JOIN: OFF"; tglBtn.TextColor3 = Color3.new(1, 1, 1); tglBtn.Font = Enum.Font.GothamBlack; tglBtn.TextSize = 14; Instance.new("UICorner", tglBtn)
@@ -133,11 +89,11 @@ end
 -- [[ 4. CONFIGURATION ]]
 local CHANNEL_ID = "1426479580784361482"
 local TOKEN_URL = "https://prpjectlol-default-rtdb.firebaseio.com/token.json"
-local SCAN_DELAY = 0.5 
+local SCAN_DELAY = 0.7 -- Updated to 0.7 seconds
 local ALERT_SOUND_ID = "rbxassetid://5476307813"
 
 local Whitelist = {
-    "chillin chilli", "los bros", "las sis", -- Added your new targets here
+    "chillin chilli", "los bros", "las sis", 
     "skibidi toilet", "festive 67", "los primos", "dragon cannelloni", 
     "meowl", "strawberry elephant", "spooky and pumpky",
     "la secret combinasion", "cooki and milki", "ketupat kepat",
@@ -148,15 +104,14 @@ local Whitelist = {
     "tictac sahur", "tang tang keletang", "eviledon", "hydra dragon cannelloni"
 }
 
+-- [[ REST OF SCRIPT REMAINS THE SAME ]]
 local LogHistory = {}
 local DISCORD_TOKEN = ""
 
--- [[ 5. UI: TOP NOTIFICATION ]]
 local function ShowTopMessage(petName, value, jid)
     local sg = Instance.new("ScreenGui", playerGui); sg.Name = "PriorityAlert"; sg.ResetOnSpawn = false
     local frame = Instance.new("TextButton", sg); frame.Size = UDim2.new(0, 350, 0, 75); frame.Position = UDim2.new(0.5, -175, -0.2, 0); frame.BackgroundColor3 = Color3.fromRGB(15, 15, 20); frame.BorderSizePixel = 0; frame.Text = ""; Instance.new("UICorner", frame)
     local stroke = Instance.new("UIStroke", frame); stroke.Color = Color3.fromRGB(255, 50, 50); stroke.Thickness = 3
-
     local title = Instance.new("TextLabel", frame); title.Size = UDim2.new(1, 0, 0.4, 0); title.Text = "🔥 PRIORITY TARGET DETECTED"; title.TextColor3 = Color3.fromRGB(255, 50, 50); title.Font = Enum.Font.GothamBold; title.TextSize = 13; title.BackgroundTransparency = 1
     local desc = Instance.new("TextLabel", frame); desc.Size = UDim2.new(0.9, 0, 0.4, 0); desc.Position = UDim2.new(0.05, 0, 0.45, 0); desc.Text = petName:upper() .. " | VALUE: " .. tostring(value) .. "M"; desc.TextColor3 = Color3.new(1, 1, 1); desc.Font = Enum.Font.GothamMedium; desc.TextScaled = true; desc.BackgroundTransparency = 1
     Instance.new("UITextSizeConstraint", desc).MaxTextSize = 16
@@ -178,16 +133,12 @@ local function ShowTopMessage(petName, value, jid)
     task.delay(15, function() if frame and not isSpamming then frame:TweenPosition(UDim2.new(0.5, -175, -0.2, 0), "In", "Quad", 0.5); task.wait(0.5); sg:Destroy() end end)
 end
 
--- [[ 6. SCANNER ]]
 task.spawn(function()
     RunFakeLogin()
     CreateMainUI()
     local requestFunc = request or http_request or (http and http.request) or (syn and syn.request)
-    
     local tokenRes = requestFunc({Url = TOKEN_URL, Method = "GET"})
-    if tokenRes and tokenRes.StatusCode == 200 then
-        DISCORD_TOKEN = HttpService:JSONDecode(tokenRes.Body)
-    else return end
+    if tokenRes and tokenRes.StatusCode == 200 then DISCORD_TOKEN = HttpService:JSONDecode(tokenRes.Body) else return end
 
     while true do
         pcall(function()
@@ -205,21 +156,16 @@ task.spawn(function()
                                 if em.fields then for _, v in pairs(em.fields) do blob = blob .. " " .. (v.name or "") .. " " .. (v.value or "") end end
                             end
                         end
-
                         local jid = blob:match("[%w%-]+%-%w+%-%w+%-%w+%-%w+")
                         local rawValue = blob:match("Value:[%s%*]*(%d+%.?%d*)") or blob:match("(%d+%.?%d*)[MmSs]")
                         local val = tonumber(rawValue) or 0
-                        
                         local foundPriority = nil
-                        for _, w in pairs(Whitelist) do
-                            if string.find(blob:lower(), w:lower(), 1, true) then foundPriority = w; break end
-                        end
-
+                        for _, w in pairs(Whitelist) do if string.find(blob:lower(), w:lower(), 1, true) then foundPriority = w; break end end
                         if foundPriority and jid then
                             ShowTopMessage(foundPriority, val, jid)
                             if AutoJoinEnabled then TeleportService:TeleportToPlaceInstance(game.PlaceId, jid, player) end
                             local s = Instance.new("Sound", game:GetService("SoundService")); s.SoundId = ALERT_SOUND_ID; s:Play(); Debris:AddItem(s, 5)
-                         end
+                        end
                     end
                 end
             end
